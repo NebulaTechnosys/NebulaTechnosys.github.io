@@ -67,10 +67,27 @@ Open http://localhost:3000
 ### 6. Deploy to GitHub Pages
 
 1. Create a GitHub repo (e.g. `nebula_technosys`)
-2. Push this project
-3. In GitHub repo → **Settings → Pages** → Source: **GitHub Actions**
+2. Push this project to `main` or `master`
+3. **Enable Pages (required once):**
+   - Go to repo **Settings → Pages**
+   - Under **Build and deployment**, set **Source** to **GitHub Actions**
+   - If you don't see that option, push the workflow first, then re-check Settings → Pages
+4. The workflow runs automatically on push. You can also trigger it manually under **Actions → Deploy to GitHub Pages → Run workflow**
 
 Your site will be at: `https://YOUR_USERNAME.github.io/nebula_technosys/`
+
+#### If deploy fails with "Get Pages site failed"
+
+This means GitHub Pages is not enabled yet on the repo. Fix:
+
+1. **Settings → Pages → Build and deployment → Source → GitHub Actions** (save)
+2. Re-run the workflow: **Actions → Deploy to GitHub Pages → Re-run all jobs**
+
+The workflow includes `enablement: true` to auto-enable Pages when possible. Some orgs require the manual step above.
+
+#### Node version note
+
+The deploy workflow uses **Node 24** (Node 20 is deprecated on GitHub Actions runners).
 
 ## What happens automatically
 
