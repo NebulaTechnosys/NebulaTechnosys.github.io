@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nebula Technosys — Mechanical design, rapid prototyping & 3D printing. From concept to production-ready product.">
+  <title>Nebula Technosys | Rapid Prototyping & 3D Printing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- Header -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="#home" class="logo" aria-label="Nebula Technosys home">
+        <img src="images/logo_blackbg.png" alt="Nebula Technosys" class="logo-img" id="logo-img" width="160" height="44">
+      </a>
+      <nav class="nav" id="nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#process">How It Works</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-ctas">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+        <a href="#contact" class="btn btn-ghost btn-sm">Consultation</a>
+        <a href="#contact" class="btn btn-primary btn-sm" data-scroll="quote">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <p class="hero-eyebrow reveal">Mechanical Design · 3D Printing · Expert Consultation</p>
+        <h1 class="hero-title reveal" id="hero-tagline">Turn your idea into a real product</h1>
+        <p class="hero-sub reveal" id="hero-desc">From first sketch to production-ready — we design, prototype, and guide your next steps.</p>
+        <div class="hero-actions reveal">
+          <a href="#contact" class="btn btn-primary btn-lg" data-scroll="quote">Get a Quote</a>
+          <a href="#contact" class="btn btn-outline btn-lg">Book Free Consultation</a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+    </section>
+
+    <!-- Three Paths -->
+    <section class="section paths-section" id="paths">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Where are you?</span>
+          <h2>We meet you at every stage</h2>
+          <p>Whether you have a napkin sketch or a finished CAD file — we take it from there.</p>
+        </div>
+        <div class="paths-grid">
+          <article class="path-card reveal" data-path="concept">
+            <div class="path-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <h3>I have a concept</h3>
+            <p>Share your idea — we design it, prototype it, and guide you through every iteration.</p>
+            <a href="#contact" class="path-link" data-journey="concept">Start with a concept →</a>
+          </article>
+          <article class="path-card reveal" data-path="design">
+            <div class="path-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+            </div>
+            <h3>I have a design</h3>
+            <p>Already have CAD or STL files? We prototype, test fit & function, and refine until it's right.</p>
+            <a href="#contact" class="path-link" data-journey="design">I have a design →</a>
+          </article>
+          <article class="path-card reveal" data-path="full">
+            <div class="path-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            </div>
+            <h3>Full journey</h3>
+            <p>End-to-end product development — concept, design, prototyping, and production-ready deliverables.</p>
+            <a href="#contact" class="path-link" data-journey="full">Full product development →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">What we do</span>
+          <h2>Design, print & guide — all under one roof</h2>
+        </div>
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <span class="service-num">01</span>
+            <h3>Mechanical Design</h3>
+            <p>Concept sketches to production-ready CAD. DFM-aware design that prints and scales.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-num">02</span>
+            <h3>3D Printing & Prototyping</h3>
+            <p>Rapid prototypes in PLA, ABS, resin, nylon & more. Fast iterations, tight tolerances.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-num">03</span>
+            <h3>Expert Consultation</h3>
+            <p>R&D-backed guidance on materials, processes, and your path to final production.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-num">04</span>
+            <h3>Production Readiness</h3>
+            <p>Validated designs, BOM support, and vendor handoff — ready for manufacturing at scale.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">How it works</span>
+          <h2>From idea to product in clear steps</h2>
+          <p>No CAD? No problem. We guide you through every stage.</p>
+        </div>
+        <div class="timeline" id="timeline">
+          <div class="timeline-item reveal" data-step="1">
+            <button class="timeline-trigger" aria-expanded="true">
+              <span class="timeline-dot"></span>
+              <span class="timeline-title">Share your idea</span>
+            </button>
+            <div class="timeline-body">
+              <p>Tell us via form, call, or WhatsApp. A sketch on paper is perfectly fine — no files required to start.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal" data-step="2">
+            <button class="timeline-trigger" aria-expanded="false">
+              <span class="timeline-dot"></span>
+              <span class="timeline-title">Discovery & scope</span>
+            </button>
+            <div class="timeline-body">
+              <p>Free consultation to understand goals, timeline, budget range, and the best path forward.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal" data-step="3">
+            <button class="timeline-trigger" aria-expanded="false">
+              <span class="timeline-dot"></span>
+              <span class="timeline-title">Design <em>(if needed)</em></span>
+            </button>
+            <div class="timeline-body">
+              <p>We create concepts and CAD models with revision rounds until you're happy with the design.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal" data-step="4">
+            <button class="timeline-trigger" aria-expanded="false">
+              <span class="timeline-dot"></span>
+              <span class="timeline-title">Print & prototype</span>
+            </button>
+            <div class="timeline-body">
+              <p>Material selection, 3D printing, fit checks, and functional testing — iterate until it's right.</p>
+            </div>
+          </div>
+          <div class="timeline-item reveal" data-step="5">
+            <button class="timeline-trigger" aria-expanded="false">
+              <span class="timeline-dot"></span>
+              <span class="timeline-title">Deliver & advise</span>
+            </button>
+            <div class="timeline-body">
+              <p>Receive parts, files, and expert guidance on scaling to final production manufacturing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio preview -->
+    <section class="section portfolio-section portfolio-section--preview" id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Our work</span>
+          <h2>Prints & prototypes we've built</h2>
+          <p id="portfolio-count">Drop images into <code>images/prints/</code> and run <code>npm run build</code> — they appear here automatically.</p>
+        </div>
+        <div class="bento-grid bento-grid--preview" id="portfolio-grid" role="list"></div>
+        <div class="portfolio-empty" id="portfolio-empty" hidden>
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+          <p>No images yet. Add your 3D print photos to <strong>images/prints/</strong> and run <strong>npm run build</strong>.</p>
+        </div>
+        <div class="portfolio-actions reveal">
+          <a href="portfolio.html" class="btn btn-primary btn-lg" id="portfolio-view-all">View full portfolio →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview" hidden>
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+      <img src="" alt="" id="lightbox-img">
+      <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+    </div>
+
+    <!-- About -->
+    <section class="section about-section" id="about">
+      <div class="container about-grid">
+        <div class="about-content reveal">
+          <span class="section-label">About us</span>
+          <h2>Experts in design & 3D printing</h2>
+          <p>Nebula Technosys is a mechanical design and 3D printing service built on deep R&D in rapid prototyping. We're not just a print shop — we're product development partners who guide you from concept to production.</p>
+          <p>Whether you're an inventor with a dream, a startup building your first product, or a team needing expert prototyping — we help you implement ideas into real, tangible products.</p>
+          <ul class="about-list">
+            <li>R&D-backed expertise in prototyping workflows</li>
+            <li>Iteration-friendly process — refine until it's perfect</li>
+            <li>Honest guidance on materials, costs & production paths</li>
+            <li>NDA-friendly — your ideas stay confidential</li>
+          </ul>
+        </div>
+        <div class="about-visual reveal">
+          <div class="about-stats">
+            <div class="stat"><span class="stat-value">Design</span><span class="stat-label">Concept to CAD</span></div>
+            <div class="stat"><span class="stat-value">Print</span><span class="stat-label">Multi-material</span></div>
+            <div class="stat"><span class="stat-value">Guide</span><span class="stat-label">To production</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq-section" id="faq">
+      <div class="container container-narrow">
+        <div class="section-head reveal">
+          <span class="section-label">FAQ</span>
+          <h2>Common questions</h2>
+        </div>
+        <div class="faq-list" id="faq-list">
+          <details class="faq-item reveal">
+            <summary>I only have an idea — is that enough to start?</summary>
+            <p>Absolutely. Many clients start with a rough sketch or even a verbal description. We help shape the concept into a design and then a prototype.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>How much does prototyping cost?</summary>
+            <p>It depends on size, complexity, material, and quantity. Share your project details and we'll provide a clear quote — usually within 24 hours.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>What file formats do you accept?</summary>
+            <p>STL, STEP, IGES, OBJ, and common CAD formats. Don't have files? No problem — we can design from your concept.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>How long does a prototype take?</summary>
+            <p>Simple prints can be ready in 1–3 days. Complex design + multi-iteration projects typically take 1–3 weeks. We'll give you a timeline upfront.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>Do you sign NDAs?</summary>
+            <p>Yes. We treat every project confidentially and are happy to sign an NDA before discussing your idea.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>Can you help with mass production?</summary>
+            <p>We prepare production-ready designs and advise on manufacturing paths, tooling, and vendor selection for scaling beyond prototyping.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-label">Get in touch</span>
+          <h2>Let's build your product</h2>
+          <p>Get a quote or book a free consultation — we respond within 24 hours.</p>
+        </div>
+        <div class="contact-grid">
+          <form class="contact-form reveal" id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="journey">Where are you in your journey?</label>
+                <select id="journey" name="journey">
+                  <option value="">Select...</option>
+                  <option value="concept">Concept only</option>
+                  <option value="sketches">Have sketches</option>
+                  <option value="cad">Have CAD / design files</option>
+                  <option value="reprint">Need reprint / iteration</option>
+                  <option value="full">Full product development</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Tell us about your project *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Describe your idea, requirements, timeline..."></textarea>
+            </div>
+            <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="form-submit">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loading" hidden>Sending...</span>
+            </button>
+          </form>
+          <div class="contact-info reveal">
+            <div class="contact-card">
+              <h3>Direct contact</h3>
+              <ul class="contact-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                  <a href="#" id="contact-phone">+91 00000 00000</a>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                  <a href="#" id="contact-email">contact@nebulatechnosys.com</a>
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.606.606l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.083-1.414l-.363-.216-3.066 1.028 1.028-3.066-.216-.363A9.818 9.818 0 1112 21.818z"/></svg>
+                  <a href="#" id="contact-whatsapp" target="_blank" rel="noopener">WhatsApp us</a>
+                </li>
+              </ul>
+            </div>
+            <div class="map-wrap">
+              <iframe
+                id="map-iframe"
+                class="map-iframe"
+                title="Nebula Technosys office location"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+              <p class="map-address" id="map-address"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="images/logo_blackbg.png" alt="Nebula Technosys" class="footer-logo-img" id="footer-logo-img" width="180" height="50">
+        <p id="footer-tagline">From concept to production-ready product.</p>
+        <div class="footer-social" id="footer-social"></div>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#services">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="footer-copy">&copy; <span id="year"></span> Nebula Technosys. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="#" class="fab-whatsapp" id="fab-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.606.606l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+  </a>
+
+  <script src="js/main.js" type="module"></script>
+</body>
+</html>
