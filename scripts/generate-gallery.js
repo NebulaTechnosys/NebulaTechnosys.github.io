@@ -131,7 +131,7 @@ function buildGallery() {
     phone: config.phone,
     whatsapp: config.whatsapp,
     web3formsAccessKey: config.web3formsAccessKey,
-    logoPath: config.logoPath,
+    logo: config.logo,
     map: config.map,
     social: config.social,
     galleryCount: gallery.length

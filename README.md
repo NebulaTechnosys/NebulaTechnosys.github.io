@@ -47,47 +47,33 @@ GitHub Pages has no backend, so the contact form uses [Web3Forms](https://web3fo
 
 Messages from the website contact form will arrive in your inbox.
 
-### 4. Build gallery
-
-```bash
-npm install
-npm run build
-```
-
-This generates `gallery.json` and `js/site-config.json`.
-
-### 5. Preview locally
-
-```bash
-npm run serve
-```
-
-Open http://localhost:3000
-
 ### 6. Deploy to GitHub Pages
 
 1. Create a GitHub repo (e.g. `nebula_technosys`)
 2. Push this project to `main` or `master`
-3. **Enable Pages (required once):**
-   - Go to repo **Settings → Pages**
-   - Under **Build and deployment**, set **Source** to **GitHub Actions**
-   - If you don't see that option, push the workflow first, then re-check Settings → Pages
-4. The workflow runs automatically on push. You can also trigger it manually under **Actions → Deploy to GitHub Pages → Run workflow**
+3. After the first successful workflow run, enable Pages:
+   - **Settings → Pages**
+   - **Build and deployment → Source → Deploy from a branch**
+   - **Branch → `gh-pages`** → folder **`/ (root)`** → Save
+4. Your site will be at: `https://YOUR_USERNAME.github.io/nebula_technosys/`
 
-Your site will be at: `https://YOUR_USERNAME.github.io/nebula_technosys/`
+The workflow builds the site and pushes only the `dist/` folder to the `gh-pages` branch. No special Pages permissions or GitHub Actions source needed.
 
-#### If deploy fails with "Get Pages site failed"
+To re-deploy after adding photos: run `npm run build`, commit, and push.
 
-This means GitHub Pages is not enabled yet on the repo. Fix:
+#### If the workflow fails
 
-1. **Settings → Pages → Build and deployment → Source → GitHub Actions** (save)
-2. Re-run the workflow: **Actions → Deploy to GitHub Pages → Re-run all jobs**
+- Check **Actions** tab for errors on the **Build site** step
+- Make sure the repo allows GitHub Actions (Settings → Actions → General)
 
-The workflow includes `enablement: true` to auto-enable Pages when possible. Some orgs require the manual step above.
+#### Local preview
 
-#### Node version note
+```bash
+npm run build
+npm run serve
+```
 
-The deploy workflow uses **Node 24** (Node 20 is deprecated on GitHub Actions runners).
+Open http://localhost:3000 (serves from `dist/`)
 
 ## What happens automatically
 

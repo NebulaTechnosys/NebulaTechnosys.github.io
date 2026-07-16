@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -18,19 +17,22 @@
   <header class="site-header" id="header">
     <div class="container header-inner">
       <a href="#home" class="logo" aria-label="Nebula Technosys home">
-        <img src="images/logo.png" alt="" class="logo-img" id="logo-img" width="40" height="40" hidden>
-        <span class="logo-text" id="logo-text">Nebula Technosys</span>
+        <img src="images/logo_blackbg.png" alt="Nebula Technosys" class="logo-img" id="logo-img" width="160" height="44">
       </a>
       <nav class="nav" id="nav" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#process">How It Works</a>
-        <a href="#portfolio">Portfolio</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#about">About</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-ctas">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
         <a href="#contact" class="btn btn-ghost btn-sm">Consultation</a>
         <a href="#contact" class="btn btn-primary btn-sm" data-scroll="quote">Get a Quote</a>
       </div>
@@ -187,20 +189,23 @@
       </div>
     </section>
 
-    <!-- Portfolio -->
-    <section class="section portfolio-section" id="portfolio">
+    <!-- Portfolio preview -->
+    <section class="section portfolio-section portfolio-section--preview" id="portfolio">
       <div class="container">
         <div class="section-head reveal">
           <span class="section-label">Our work</span>
           <h2>Prints & prototypes we've built</h2>
           <p id="portfolio-count">Drop images into <code>images/prints/</code> and run <code>npm run build</code> — they appear here automatically.</p>
         </div>
-        <div class="masonry-grid" id="masonry-grid" role="list"></div>
+        <div class="bento-grid bento-grid--preview" id="portfolio-grid" role="list"></div>
         <div class="portfolio-empty" id="portfolio-empty" hidden>
           <div class="empty-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           </div>
           <p>No images yet. Add your 3D print photos to <strong>images/prints/</strong> and run <strong>npm run build</strong>.</p>
+        </div>
+        <div class="portfolio-actions reveal">
+          <a href="portfolio.html" class="btn btn-primary btn-lg" id="portfolio-view-all">View full portfolio →</a>
         </div>
       </div>
     </section>
@@ -341,7 +346,14 @@
               </ul>
             </div>
             <div class="map-wrap">
-              <div id="map" class="map" role="application" aria-label="Office location map"></div>
+              <iframe
+                id="map-iframe"
+                class="map-iframe"
+                title="Nebula Technosys office location"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
               <p class="map-address" id="map-address"></p>
             </div>
           </div>
@@ -354,12 +366,13 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <span class="logo-text" id="footer-logo">Nebula Technosys</span>
+        <img src="images/logo_blackbg.png" alt="Nebula Technosys" class="footer-logo-img" id="footer-logo-img" width="180" height="50">
         <p id="footer-tagline">From concept to production-ready product.</p>
+        <div class="footer-social" id="footer-social"></div>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#contact">Contact</a>
       </nav>
       <p class="footer-copy">&copy; <span id="year"></span> Nebula Technosys. All rights reserved.</p>
@@ -371,7 +384,6 @@
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.606.606l4.458-1.495A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
   </a>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="js/main.js" type="module"></script>
 </body>
 </html>

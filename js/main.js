@@ -2,24 +2,22 @@
  * Nebula Technosys — Main application
  */
 
-const ROW_UNIT = 8;
-const GAP = 10;
+import { fetchGallery, initBentoGallery, HOME_PREVIEW_COUNT } from './gallery.js';
 
 let config = {};
 let gallery = [];
-let lightboxIndex = 0;
 
 async function init() {
   await loadConfig();
   applyConfig();
   await loadGallery();
   initHero();
-  initMasonry();
+  initHomeGallery();
   initNavigation();
   initTimeline();
-  initLightbox();
   initContactForm();
   initMap();
+  initTheme();
   initReveal();
   initJourneyLinks();
 
@@ -38,8 +36,15 @@ async function loadConfig() {
       phone: '+91 00000 00000',
       whatsapp: '910000000000',
       web3formsAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
-      logoPath: 'images/logo.png',
-      map: { lat: 21.1702, lng: 72.8311, address: 'Your Office Address', zoom: 16 }
+      logo: {
+        darkTheme: 'images/logo_blackbg.png',
+        lightTheme: 'images/logo_whitebg.png'
+      },
+      map: {
+        embedUrl: '',
+        address: 'Your Office Address'
+      },
+      social: {}
     };
   }
 }
@@ -48,7 +53,6 @@ function applyConfig() {
   const name = config.companyName || 'Nebula Technosys';
 
   document.title = `${name} | Rapid Prototyping & 3D Printing`;
-  document.querySelectorAll('#logo-text, #footer-logo').forEach(el => { el.textContent = name; });
 
   const tagline = config.tagline || 'Turn your idea into a real product';
   const desc = config.description || 'From first sketch to production-ready — we design, prototype, and guide your next steps.';
@@ -60,13 +64,8 @@ function applyConfig() {
   if (heroDesc) heroDesc.textContent = desc;
   if (footerTagline) footerTagline.textContent = tagline;
 
-  const logoImg = document.getElementById('logo-img');
-  if (logoImg && config.logoPath) {
-    logoImg.src = config.logoPath;
-    logoImg.alt = name;
-    logoImg.onload = () => { logoImg.hidden = false; };
-    logoImg.onerror = () => { logoImg.hidden = true; };
-  }
+  applyLogos(getTheme());
+  initSocialLinks();
 
   const phoneEl = document.getElementById('contact-phone');
   const emailEl = document.getElementById('contact-email');
@@ -91,17 +90,32 @@ function applyConfig() {
 }
 
 async function loadGallery() {
-  try {
-    const res = await fetch('gallery.json');
-    if (res.ok) gallery = await res.json();
-  } catch {
-    gallery = [];
-  }
+  gallery = await fetchGallery();
 
   const countEl = document.getElementById('portfolio-count');
-  if (countEl && gallery.length > 0) {
-    countEl.textContent = `${gallery.length} prototype${gallery.length !== 1 ? 's' : ''} from our workshop.`;
+  const viewAll = document.getElementById('portfolio-view-all');
+  if (gallery.length > 0) {
+    if (countEl) {
+      countEl.textContent = gallery.length > HOME_PREVIEW_COUNT
+        ? `A curated preview from ${gallery.length} prototypes in our workshop.`
+        : `${gallery.length} prototype${gallery.length !== 1 ? 's' : ''} from our workshop.`;
+    }
+    if (viewAll) viewAll.hidden = gallery.length <= HOME_PREVIEW_COUNT;
   }
+}
+
+function initHomeGallery() {
+  initBentoGallery({
+    grid: document.getElementById('portfolio-grid'),
+    empty: document.getElementById('portfolio-empty'),
+    statusEl: null,
+    gallery,
+    limit: HOME_PREVIEW_COUNT
+  });
+
+  document.querySelectorAll('#portfolio-grid .bento-item').forEach(el => {
+    el.classList.add('reveal');
+  });
 }
 
 function initHero() {
@@ -127,68 +141,6 @@ function initHero() {
       layers[current].classList.add('active');
     }, 5000);
   }
-}
-
-function initMasonry() {
-  const grid = document.getElementById('masonry-grid');
-  const empty = document.getElementById('portfolio-empty');
-
-  if (!grid) return;
-
-  if (gallery.length === 0) {
-    grid.hidden = true;
-    if (empty) empty.hidden = false;
-    return;
-  }
-
-  if (empty) empty.hidden = true;
-  grid.innerHTML = '';
-
-  const cols = getColumnCount();
-  const colWidth = (grid.offsetWidth - GAP * (cols - 1)) / cols;
-
-  gallery.forEach((item, index) => {
-    const el = document.createElement('div');
-    el.className = 'masonry-item reveal';
-    el.role = 'listitem';
-    el.dataset.index = index;
-
-    const img = document.createElement('img');
-    img.src = item.src;
-    img.alt = `3D print prototype ${index + 1}`;
-    img.loading = index < 8 ? 'eager' : 'lazy';
-    img.decoding = 'async';
-
-    el.appendChild(img);
-    grid.appendChild(el);
-
-    img.onload = () => layoutMasonryItem(el, item, colWidth);
-    if (img.complete) layoutMasonryItem(el, item, colWidth);
-
-    el.addEventListener('click', () => openLightbox(index));
-  });
-
-  window.addEventListener('resize', debounce(() => {
-    const w = (grid.offsetWidth - GAP * (getColumnCount() - 1)) / getColumnCount();
-    grid.querySelectorAll('.masonry-item').forEach((el, i) => {
-      if (gallery[i]) layoutMasonryItem(el, gallery[i], w);
-    });
-  }, 200));
-}
-
-function getColumnCount() {
-  const w = window.innerWidth;
-  if (w <= 480) return 1;
-  if (w <= 768) return 2;
-  if (w <= 1024) return 3;
-  return 4;
-}
-
-function layoutMasonryItem(el, item, colWidth) {
-  const ratio = item.aspectRatio || (item.width / item.height) || 1;
-  const imgHeight = colWidth / ratio;
-  const rowSpan = Math.ceil((imgHeight + GAP) / (ROW_UNIT + GAP / getColumnCount()));
-  el.style.gridRowEnd = `span ${Math.max(rowSpan, 12)}`;
 }
 
 function initNavigation() {
@@ -256,48 +208,6 @@ function initTimeline() {
   });
 }
 
-function initLightbox() {
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  const close = document.getElementById('lightbox-close');
-  const prev = document.getElementById('lightbox-prev');
-  const next = document.getElementById('lightbox-next');
-
-  close?.addEventListener('click', closeLightbox);
-  lb?.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
-  prev?.addEventListener('click', () => navigateLightbox(-1));
-  next?.addEventListener('click', () => navigateLightbox(1));
-
-  document.addEventListener('keydown', e => {
-    if (lb?.hidden) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') navigateLightbox(-1);
-    if (e.key === 'ArrowRight') navigateLightbox(1);
-  });
-}
-
-function openLightbox(index) {
-  if (!gallery.length) return;
-  lightboxIndex = index;
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  img.src = gallery[index].src;
-  img.alt = `3D print prototype ${index + 1}`;
-  lb.hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').hidden = true;
-  document.body.style.overflow = '';
-}
-
-function navigateLightbox(dir) {
-  lightboxIndex = (lightboxIndex + dir + gallery.length) % gallery.length;
-  const img = document.getElementById('lightbox-img');
-  img.src = gallery[lightboxIndex].src;
-}
-
 function initContactForm() {
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
@@ -351,26 +261,74 @@ function initContactForm() {
   });
 }
 
+function getTheme() {
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+}
+
+function applyLogos(theme) {
+  const name = config.companyName || 'Nebula Technosys';
+  const darkLogo = config.logo?.darkTheme || 'images/logo_blackbg.png';
+  const lightLogo = config.logo?.lightTheme || 'images/logo_whitebg.png';
+  const src = theme === 'light' ? lightLogo : darkLogo;
+
+  document.querySelectorAll('#logo-img, #footer-logo-img').forEach(img => {
+    img.src = src;
+    img.alt = name;
+  });
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('nebula-theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const theme = saved || (prefersLight ? 'light' : 'dark');
+  setTheme(theme);
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+  });
+}
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem('nebula-theme', theme);
+  applyLogos(theme);
+
+  const toggle = document.getElementById('theme-toggle');
+  if (toggle) {
+    toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+}
+
+function initSocialLinks() {
+  const container = document.getElementById('footer-social');
+  const social = config.social || {};
+  if (!container) return;
+
+  const icons = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><path d="M17.5 6.5h.01"/></svg>',
+    linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.126 0 2.063 2.063 0 01-2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    youtube: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>'
+  };
+
+  container.innerHTML = '';
+  for (const [key, url] of Object.entries(social)) {
+    if (!url || !icons[key]) continue;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.setAttribute('aria-label', key);
+    a.innerHTML = icons[key];
+    container.appendChild(a);
+  }
+}
+
 function initMap() {
-  const mapEl = document.getElementById('map');
-  if (!mapEl || typeof L === 'undefined') return;
-
-  const { lat, lng, zoom = 16 } = config.map || {};
-  if (!lat || !lng) return;
-
-  const map = L.map(mapEl, { scrollWheelZoom: false }).setView([lat, lng], zoom);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
-    maxZoom: 19
-  }).addTo(map);
-
-  L.marker([lat, lng]).addTo(map)
-    .bindPopup(`<strong>${config.companyName}</strong><br>${config.map.address || ''}`)
-    .openPopup();
-
-  mapEl.addEventListener('click', () => map.scrollWheelZoom.enable());
-  mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+  const iframe = document.getElementById('map-iframe');
+  const embedUrl = config.map?.embedUrl;
+  if (iframe && embedUrl) {
+    iframe.src = embedUrl;
+  }
 }
 
 function initReveal() {
@@ -390,11 +348,6 @@ function initJourneyLinks() {
       if (select && map[val]) select.value = map[val];
     });
   });
-}
-
-function debounce(fn, ms) {
-  let t;
-  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
 }
 
 init();

@@ -1,7 +1,10 @@
-# Drop your company logo here
+# Brand assets
 
-Save your logo as **`logo.png`** in this folder (`images/logo.png`).
+| File | Use |
+|------|-----|
+| `logo_blackbg.png` | Dark theme (header & footer) |
+| `logo_whitebg.png` | Light theme (header & footer) |
 
-Supported formats: PNG (recommended), JPG, WebP, SVG also works if named logo.png or update `logoPath` in config.
+The site includes a theme toggle (sun/moon icon in header). Logos switch automatically.
 
-If no logo is found, the site shows the text **Nebula Technosys** automatically.
+3D print photos go in **`prints/`**.

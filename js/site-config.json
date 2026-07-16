@@ -2,21 +2,22 @@
   "companyName": "Nebula Technosys",
   "tagline": "From concept to production-ready product",
   "description": "Mechanical design, rapid prototyping & 3D printing experts. We turn your ideas into real, production-ready products.",
-  "email": "contact@nebulatechnosys.com",
-  "phone": "+91 00000 00000",
-  "whatsapp": "910000000000",
-  "web3formsAccessKey": "YOUR_WEB3FORMS_ACCESS_KEY",
-  "logoPath": "images/logo.png",
+  "email": "nebulatechnosys@gmail.com",
+  "phone": "+91 8669008691",
+  "whatsapp": "+91 7757909765",
+  "web3formsAccessKey": "7f034919-2ab6-4c9d-8985-63cdf725fd2b",
+  "logo": {
+    "darkTheme": "images/logo_blackbg.png",
+    "lightTheme": "images/logo_whitebg.png"
+  },
   "map": {
-    "lat": 21.1702,
-    "lng": 72.8311,
-    "address": "Your Office Address, City, State, India",
-    "zoom": 16
+    "embedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.18271317809632!2d72.85075349142382!3d19.41571488874223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a9b76cffa817%3A0xe7d86d1ab36513fc!2sNebula%20Technosys%20(Rapid%20Prototyping%20Lab)!5e0!3m2!1sen!2sin!4v1784225006570!5m2!1sen!2sin",
+    "address": "Gala No, B/17, opp. Welcome hardware, Gavraipada, Golani Naka, Vasai East, Vasai-Virar, Maharashtra 401208"
   },
   "social": {
-    "instagram": "",
-    "linkedin": "",
-    "youtube": ""
+    "instagram": "https://www.instagram.com/nebulatechnosys/",
+    "linkedin": "https://www.linkedin.com/company/nebula-technosys",
+    "youtube": "https://www.youtube.com/channel/UClm2dYP23afj8IlMHm0Drwg"
   },
-  "galleryCount": 0
+  "galleryCount": 118
 }

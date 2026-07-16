@@ -4,7 +4,7 @@
   "private": true,
   "description": "Nebula Technosys — Rapid Prototyping & 3D Printing",
   "scripts": {
-    "build": "node scripts/generate-gallery.js",
-    "serve": "npx --yes serve . -l 3000"
+    "build": "node scripts/generate-gallery.js && node scripts/prepare-deploy.js",
+    "serve": "npx --yes serve dist -l 3000"
   }
 }
