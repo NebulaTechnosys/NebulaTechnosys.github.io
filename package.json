@@ -1,0 +1,10 @@
+{
+  "name": "nebula-technosys",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nebula Technosys — Rapid Prototyping & 3D Printing",
+  "scripts": {
+    "build": "node scripts/generate-gallery.js",
+    "serve": "npx --yes serve . -l 3000"
+  }
+}

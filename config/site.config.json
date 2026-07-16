@@ -1,0 +1,23 @@
+{
+  "companyName": "Nebula Technosys",
+  "tagline": "From concept to production-ready product",
+  "description": "Mechanical design, rapid prototyping & 3D printing experts. We turn your ideas into real, production-ready products.",
+  "email": "contact@nebulatechnosys.com",
+  "phone": "+91 00000 00000",
+  "whatsapp": "910000000000",
+  "web3formsAccessKey": "YOUR_WEB3FORMS_ACCESS_KEY",
+  "githubPagesBase": "/nebula_technosys/",
+  "imagesDir": "images/prints",
+  "logoPath": "images/logo.png",
+  "map": {
+    "lat": 21.1702,
+    "lng": 72.8311,
+    "address": "Your Office Address, City, State, India",
+    "zoom": 16
+  },
+  "social": {
+    "instagram": "",
+    "linkedin": "",
+    "youtube": ""
+  }
+}
