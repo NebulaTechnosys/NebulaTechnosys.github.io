@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid demos — Nebula Technosys</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0a0e17;
+      color: #e8ecf4;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    p { color: #94a3b8; margin-bottom: 2rem; max-width: 560px; }
+    .grid { display: grid; gap: 1rem; max-width: 720px; }
+    a {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      background: #151d2e;
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 12px;
+      color: #e8ecf4;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    a:hover { border-color: #06b6d4; transform: translateY(-2px); }
+    a strong { display: block; font-size: 1.05rem; margin-bottom: 0.35rem; color: #06b6d4; }
+    a span { font-size: 0.9rem; color: #94a3b8; }
+    .note {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #111827;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+    code { background: #151d2e; padding: 0.15em 0.4em; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Portfolio grid demos</h1>
+  <p>Open each demo in your browser, compare layouts, then tell us which number to use on the live site.</p>
+
+  <div class="grid">
+    <a href="grid-01-squares.html"><strong>Demo 1 — Square mosaic</strong><span>Equal squares, tight gaps, clean interlocked grid</span></a>
+    <a href="grid-02-horizontal.html"><strong>Demo 2 — All horizontal</strong><span>Wide landscape strips stacked in rows</span></a>
+    <a href="grid-03-vertical.html"><strong>Demo 3 — All vertical</strong><span>Tall portrait columns side by side</span></a>
+    <a href="grid-04-mixed-bento.html"><strong>Demo 4 — Mixed bento</strong><span>Big + small boxes, squares + wide + tall combined</span></a>
+    <a href="grid-05-overlap.html"><strong>Demo 5 — Overlapping collage</strong><span>Staggered cards with depth and hover lift</span></a>
+    <a href="grid-06-current.html"><strong>Demo 6 — Current site style</strong><span>What’s on the live portfolio page now (reference)</span></a>
+  </div>
+
+  <p class="note">
+    Uses your <code>images/prints/</code> photos. Run <code>npm run serve</code> then open
+    <code>http://localhost:3000/demos/</code> (or open <code>demos/index.html</code> directly).
+  </p>
+</body>
+</html>

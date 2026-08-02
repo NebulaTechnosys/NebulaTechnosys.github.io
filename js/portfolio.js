@@ -2,7 +2,7 @@
  * Portfolio page — full gallery in scrollable panel with load-more.
  */
 
-import { fetchGallery, initBentoGallery, BATCH_SIZE } from './gallery.js';
+import { fetchGallery, initCollageGallery, PORTFOLIO_BATCH_SIZE } from './gallery.js';
 
 async function loadConfig() {
   try {
@@ -119,14 +119,15 @@ async function init() {
     countHead.textContent = `${gallery.length} prototypes from our workshop`;
   }
 
-  initBentoGallery({
-    grid: document.getElementById('portfolio-grid'),
+  initCollageGallery({
+    container: document.getElementById('portfolio-grid'),
     empty: document.getElementById('portfolio-empty'),
     statusEl: document.getElementById('portfolio-status'),
     loadMoreBtn: document.getElementById('load-more'),
     scrollWrap: document.getElementById('portfolio-scroll'),
     gallery,
-    limit: null
+    limit: null,
+    batchSize: PORTFOLIO_BATCH_SIZE
   });
 }
 

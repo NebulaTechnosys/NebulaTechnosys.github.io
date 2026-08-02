@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 5 — Overlapping collage</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0a0e17; color: #e8ecf4; }
+    .top { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(148,163,184,0.12); }
+    .top a { color: #06b6d4; text-decoration: none; font-size: 0.9rem; }
+    .top h1 { font-size: 1.15rem; margin: 0.5rem 0 0.25rem; }
+    .top p { font-size: 0.85rem; color: #94a3b8; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+    .stage {
+      position: relative;
+      height: 520px;
+      margin: 0 auto;
+    }
+    .card {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 3px solid rgba(10,14,23,0.9);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      transition: transform 0.3s ease, z-index 0s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.06) rotate(0deg) !important;
+      z-index: 20 !important;
+      box-shadow: 0 20px 50px rgba(6,182,212,0.25);
+    }
+    .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* varied sizes + overlap */
+    .c1 { width: 42%; height: 48%; top: 0; left: 5%; transform: rotate(-2deg); z-index: 3; }
+    .c2 { width: 38%; height: 42%; top: 8%; right: 4%; transform: rotate(3deg); z-index: 5; }
+    .c3 { width: 28%; height: 55%; top: 38%; left: 18%; transform: rotate(1deg); z-index: 2; }
+    .c4 { width: 45%; height: 35%; top: 42%; right: 8%; transform: rotate(-1.5deg); z-index: 4; }
+    .c5 { width: 32%; height: 32%; top: 22%; left: 38%; transform: rotate(4deg); z-index: 6; }
+    .c6 { width: 36%; height: 38%; bottom: 2%; left: 2%; transform: rotate(-3deg); z-index: 1; }
+    .c7 { width: 30%; height: 45%; bottom: 0; right: 22%; transform: rotate(2deg); z-index: 3; }
+    @media (max-width: 640px) {
+      .stage { height: 420px; }
+      .c1,.c2,.c4 { width: 48%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html">← All demos</a>
+    <h1>Demo 5 — Overlapping collage</h1>
+    <p>Staggered cards with overlap and rotation — hover to bring any image to front.</p>
+  </header>
+  <div class="wrap">
+    <div class="stage" id="stage"></div>
+  </div>
+  <script>
+    const layout = [
+      { src: '../images/prints/01.11.2021_web.jpg', cls: 'c1' },
+      { src: '../images/prints/20230601_000954.jpg', cls: 'c2' },
+      { src: '../images/prints/IMG_20190109_225144.jpg', cls: 'c3' },
+      { src: '../images/prints/20230601_001003.jpg', cls: 'c4' },
+      { src: '../images/prints/IMG_20190318_120408.jpg', cls: 'c5' },
+      { src: '../images/prints/IMG_20190109_225201.jpg', cls: 'c6' },
+      { src: '../images/prints/20230601_001151.jpg', cls: 'c7' }
+    ];
+    document.getElementById('stage').innerHTML = layout.map((item,i) =>
+      `<div class="card ${item.cls}"><img src="${item.src}" alt="Collage ${i+1}" loading="lazy"></div>`
+    ).join('');
+  </script>
+</body>
+</html>

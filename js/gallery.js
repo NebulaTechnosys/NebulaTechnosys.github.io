@@ -1,98 +1,21 @@
 /**
- * Organized bento gallery — tiled big/small blocks (reference-style layouts).
+ * Overlapping collage gallery — staggered cards with hover lift.
  */
 
-export const BATCH_SIZE = 24;
-export const HOME_PREVIEW_COUNT = 10;
+export const COLLAGE_SLOTS = 7;
+export const PORTFOLIO_BATCH_SIZE = 50;
+export const HOME_PREVIEW_COUNT = 7;
 
-/** 4-column desktop: big square + cluster, mirrored (10 tiles per block) */
-export const PATTERN_DESKTOP = [
-  { cs: 2, rs: 2, type: 'square' },
-  { cs: 1, rs: 2, type: 'portrait' },
-  { cs: 1, rs: 1, type: 'square' },
-  { cs: 2, rs: 1, type: 'landscape' },
-  { cs: 2, rs: 1, type: 'landscape' },
-  { cs: 1, rs: 2, type: 'portrait' },
-  { cs: 1, rs: 1, type: 'square' },
-  { cs: 2, rs: 2, type: 'square' },
-  { cs: 2, rs: 1, type: 'landscape' },
-  { cs: 2, rs: 1, type: 'landscape' }
+/** Card positions within one collage stage (matches demo 5) */
+export const COLLAGE_LAYOUT = [
+  'collage-c1',
+  'collage-c2',
+  'collage-c3',
+  'collage-c4',
+  'collage-c5',
+  'collage-c6',
+  'collage-c7'
 ];
-
-/** 3-column tablet: big left + 2 stacked, then mirrored (6 tiles) */
-export const PATTERN_TABLET = [
-  { cs: 2, rs: 2, type: 'square' },
-  { cs: 1, rs: 1, type: 'portrait' },
-  { cs: 1, rs: 1, type: 'landscape' },
-  { cs: 1, rs: 1, type: 'landscape' },
-  { cs: 1, rs: 1, type: 'portrait' },
-  { cs: 2, rs: 2, type: 'square' }
-];
-
-/** 2-column mobile: alternating wide / tall / square pairs */
-export const PATTERN_MOBILE = [
-  { cs: 2, rs: 1, type: 'landscape' },
-  { cs: 1, rs: 1, type: 'square' },
-  { cs: 1, rs: 1, type: 'square' },
-  { cs: 1, rs: 2, type: 'portrait' },
-  { cs: 1, rs: 1, type: 'landscape' },
-  { cs: 2, rs: 1, type: 'landscape' }
-];
-
-export function getPatternSlot(index) {
-  return PATTERN_DESKTOP[index % PATTERN_DESKTOP.length];
-}
-
-export function getSlotType(index) {
-  return getPatternSlot(index).type;
-}
-
-/** Assign photos to slot types — wide→landscape/portrait, tall→portrait, mid→square */
-export function mixGalleryForBento(items) {
-  if (!items.length) return [];
-
-  const wide = items.filter(i => (i.aspectRatio || 1) > 1.2);
-  const tall = items.filter(i => (i.aspectRatio || 1) < 0.85);
-  const mid = items.filter(i => {
-    const ar = i.aspectRatio || 1;
-    return ar >= 0.85 && ar <= 1.2;
-  });
-
-  const pools = { wide: [...wide], tall: [...tall], mid: [...mid] };
-  const used = new Set();
-  const result = [];
-
-  function pull(...order) {
-    for (const key of order) {
-      while (pools[key].length) {
-        const item = pools[key].shift();
-        if (!used.has(item.src)) {
-          used.add(item.src);
-          return item;
-        }
-      }
-    }
-    return null;
-  }
-
-  function pullForType(type) {
-    if (type === 'landscape') return pull('wide', 'mid', 'tall');
-    if (type === 'portrait') return pull('tall', 'wide', 'mid');
-    return pull('mid', 'tall', 'wide');
-  }
-
-  for (let i = 0; i < items.length; i++) {
-    const type = getPatternSlot(i).type;
-    const item = pullForType(type);
-    if (item) result.push(item);
-  }
-
-  for (const item of items) {
-    if (!used.has(item.src)) result.push(item);
-  }
-
-  return result;
-}
 
 export async function fetchGallery() {
   try {
@@ -100,35 +23,6 @@ export async function fetchGallery() {
     if (res.ok) return await res.json();
   } catch { /* empty */ }
   return [];
-}
-
-export function createBentoItem(item, globalIndex, { eager = false } = {}) {
-  const slotIndex = globalIndex % PATTERN_DESKTOP.length;
-  const slot = getPatternSlot(globalIndex);
-
-  const el = document.createElement('div');
-  el.className = `bento-item bento-slot-${slotIndex} bento-crop-${slot.type}`;
-  el.role = 'listitem';
-  el.dataset.index = String(globalIndex);
-  el.dataset.slot = String(slotIndex);
-
-  const img = document.createElement('img');
-  img.src = item.src;
-  img.alt = `3D print prototype ${globalIndex + 1}`;
-  img.loading = eager ? 'eager' : 'lazy';
-  img.decoding = 'async';
-
-  el.appendChild(img);
-  return el;
-}
-
-export function renderBentoItems(grid, items, startGlobalIndex, onItemClick) {
-  items.forEach((item, i) => {
-    const globalIndex = startGlobalIndex + i;
-    const el = createBentoItem(item, globalIndex, { eager: globalIndex < 12 });
-    el.addEventListener('click', () => onItemClick(globalIndex));
-    grid.appendChild(el);
-  });
 }
 
 export function initLightbox(gallery) {
@@ -176,32 +70,73 @@ export function initLightbox(gallery) {
   return { open, close: closeLightbox, navigate };
 }
 
-export function initBentoGallery(opts) {
+function createCollageCard(item, globalIndex, slotClass, { eager = false } = {}) {
+  const el = document.createElement('button');
+  el.type = 'button';
+  el.className = `collage-card ${slotClass}`;
+  el.dataset.index = String(globalIndex);
+  el.setAttribute('aria-label', `View prototype ${globalIndex + 1}`);
+
+  const img = document.createElement('img');
+  img.src = item.src;
+  img.alt = `3D print prototype ${globalIndex + 1}`;
+  img.loading = eager ? 'eager' : 'lazy';
+  img.decoding = 'async';
+  img.draggable = false;
+
+  el.appendChild(img);
+  return el;
+}
+
+function createCollageStage(items, startGlobalIndex, onItemClick, { variant = 'default' } = {}) {
+  const stage = document.createElement('div');
+  stage.className = variant === 'preview' ? 'collage-stage collage-stage--preview' : 'collage-stage';
+  stage.setAttribute('role', 'list');
+
+  items.forEach((item, i) => {
+    const globalIndex = startGlobalIndex + i;
+    const slotClass = COLLAGE_LAYOUT[i % COLLAGE_LAYOUT.length];
+    const card = createCollageCard(item, globalIndex, slotClass, { eager: globalIndex < 20 });
+    card.addEventListener('click', () => onItemClick(globalIndex));
+    stage.appendChild(card);
+  });
+
+  return stage;
+}
+
+/**
+ * @param {object} opts
+ * @param {HTMLElement} opts.container — stages wrapper (or single stage on home)
+ * @param {HTMLElement|null} opts.empty
+ * @param {HTMLElement|null} opts.statusEl
+ * @param {HTMLElement|null} opts.loadMoreBtn
+ * @param {HTMLElement|null} opts.scrollWrap
+ * @param {number|null} opts.limit — home preview: one stage only
+ */
+export function initCollageGallery(opts) {
   const {
-    grid,
+    container,
     empty,
     statusEl,
     loadMoreBtn,
     scrollWrap,
-    gallery: rawGallery,
+    gallery,
     limit = null,
+    batchSize = PORTFOLIO_BATCH_SIZE,
     onReady
   } = opts;
 
-  const gallery = mixGalleryForBento(rawGallery);
-
-  if (!grid || !gallery.length) {
-    if (grid) grid.hidden = true;
+  if (!container || !gallery.length) {
+    if (container) container.hidden = true;
     if (empty) empty.hidden = false;
     return { lightbox: initLightbox([]) };
   }
 
   if (empty) empty.hidden = true;
-  grid.hidden = false;
-  grid.innerHTML = '';
+  container.hidden = false;
+  container.innerHTML = '';
 
-  const lightboxSource = limit != null ? gallery.slice(0, Math.min(limit, gallery.length)) : gallery;
-  const lightbox = initLightbox(lightboxSource);
+  const lightbox = initLightbox(gallery);
   let shown = 0;
 
   function updateStatus() {
@@ -214,10 +149,21 @@ export function initBentoGallery(opts) {
   }
 
   function appendBatch(count) {
-    const slice = gallery.slice(shown, shown + count);
-    if (!slice.length) return;
-    renderBentoItems(grid, slice, shown, i => lightbox.open(i));
-    shown += slice.length;
+    while (shown < gallery.length && count > 0) {
+      const slice = gallery.slice(shown, shown + COLLAGE_SLOTS);
+      if (!slice.length) break;
+
+      const stage = createCollageStage(slice, shown, i => lightbox.open(i));
+      container.appendChild(stage);
+
+      shown += slice.length;
+      count -= slice.length;
+
+      requestAnimationFrame(() => {
+        stage.querySelectorAll('.collage-card').forEach(el => el.classList.add('visible'));
+      });
+    }
+
     updateStatus();
 
     if (loadMoreBtn) {
@@ -226,21 +172,24 @@ export function initBentoGallery(opts) {
         loadMoreBtn.hidden = true;
       } else {
         loadMoreBtn.hidden = false;
-        loadMoreBtn.textContent = `Load more (${Math.min(BATCH_SIZE, remaining)} of ${remaining} remaining)`;
+        const next = Math.min(batchSize, remaining);
+        loadMoreBtn.textContent = `Load more (${next} photos)`;
       }
     }
-
-    grid.querySelectorAll('.bento-item:not(.visible)').forEach(el => {
-      requestAnimationFrame(() => el.classList.add('visible'));
-    });
   }
 
   if (limit != null) {
-    appendBatch(Math.min(limit, gallery.length));
+    const slice = gallery.slice(0, Math.min(limit, gallery.length));
+    const stage = createCollageStage(slice, 0, i => lightbox.open(i), { variant: 'preview' });
+    container.appendChild(stage);
+    shown = slice.length;
+    requestAnimationFrame(() => {
+      stage.querySelectorAll('.collage-card').forEach(el => el.classList.add('visible'));
+    });
   } else {
-    appendBatch(Math.min(BATCH_SIZE, gallery.length));
+    appendBatch(batchSize);
     loadMoreBtn?.addEventListener('click', () => {
-      appendBatch(BATCH_SIZE);
+      appendBatch(batchSize);
       if (scrollWrap && shown >= gallery.length) {
         scrollWrap.classList.add('is-expanded');
       }
@@ -251,3 +200,6 @@ export function initBentoGallery(opts) {
   onReady?.({ shown, total: gallery.length });
   return { lightbox, appendBatch };
 }
+
+/** @deprecated use initCollageGallery */
+export const initBentoGallery = initCollageGallery;
