@@ -7,7 +7,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
-const COPY = ['index.html', 'portfolio.html', 'css', 'js', 'images', 'gallery.json', '.nojekyll'];
+const COPY = ['index.html', 'portfolio.html', 'css', 'js', 'images', 'gallery.json', 'demos', '.nojekyll'];
 
 function copyRecursive(src, dest) {
   const stat = fs.statSync(src);

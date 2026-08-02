@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 1 — Square mosaic</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0a0e17; color: #e8ecf4; }
+    .top { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(148,163,184,0.12); }
+    .top a { color: #06b6d4; text-decoration: none; font-size: 0.9rem; }
+    .top h1 { font-size: 1.15rem; margin: 0.5rem 0 0.25rem; }
+    .top p { font-size: 0.85rem; color: #94a3b8; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .cell {
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 2px solid rgba(148,163,184,0.1);
+    }
+    .cell img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html">← All demos</a>
+    <h1>Demo 1 — Square mosaic</h1>
+    <p>All equal squares, minimal 6px gaps — images cropped to 1:1 and interlocked.</p>
+  </header>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+  <script>
+    const imgs = [
+      '../images/prints/01.11.2021_web.jpg',
+      '../images/prints/IMG_20190318_120408.jpg',
+      '../images/prints/IMG_20191116_205819.jpg',
+      '../images/prints/IMG_20191121_173418.jpg',
+      '../images/prints/01.11.2021_web.jpg',
+      '../images/prints/IMG_20190318_120408.jpg',
+      '../images/prints/IMG_20191116_205819.jpg',
+      '../images/prints/IMG_20191121_173418.jpg',
+      '../images/prints/01.11.2021_web.jpg',
+      '../images/prints/IMG_20190318_120408.jpg',
+      '../images/prints/IMG_20191116_205819.jpg',
+      '../images/prints/IMG_20191121_173418.jpg',
+      '../images/prints/01.11.2021_web.jpg',
+      '../images/prints/IMG_20190318_120408.jpg',
+      '../images/prints/IMG_20191116_205819.jpg',
+      '../images/prints/IMG_20191121_173418.jpg'
+    ];
+    document.getElementById('grid').innerHTML = imgs.map((s,i) =>
+      `<div class="cell"><img src="${s}" alt="Square ${i+1}" loading="lazy"></div>`
+    ).join('');
+  </script>
+</body>
+</html>

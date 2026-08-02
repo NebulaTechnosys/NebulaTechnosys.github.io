@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 4 — Mixed bento</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0a0e17; color: #e8ecf4; }
+    .top { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(148,163,184,0.12); }
+    .top a { color: #06b6d4; text-decoration: none; font-size: 0.9rem; }
+    .top h1 { font-size: 1.15rem; margin: 0.5rem 0 0.25rem; }
+    .top p { font-size: 0.85rem; color: #94a3b8; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 88px;
+      gap: 8px;
+      grid-auto-flow: dense;
+    }
+    .cell { overflow: hidden; border-radius: 8px; border: 2px solid rgba(148,163,184,0.12); min-height: 0; }
+    .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .s0 { grid-column: span 2; grid-row: span 2; }
+    .s1 { grid-column: span 1; grid-row: span 2; }
+    .s2 { grid-column: span 1; grid-row: span 1; }
+    .s3, .s4 { grid-column: span 2; grid-row: span 1; }
+    .s5 { grid-column: span 1; grid-row: span 2; }
+    .s6 { grid-column: span 1; grid-row: span 1; }
+    .s7 { grid-column: span 2; grid-row: span 2; }
+    .s8, .s9 { grid-column: span 2; grid-row: span 1; }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 72px; }
+      .s0, .s7 { grid-column: span 2; grid-row: span 2; }
+      .s1, .s5 { grid-column: span 1; grid-row: span 2; }
+      .s3, .s4, .s8 { grid-column: span 2; grid-row: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="index.html">← All demos</a>
+    <h1>Demo 4 — Mixed bento</h1>
+    <p>Big squares + tall + wide slots combined — organized blocks (Pinterest / bento style).</p>
+  </header>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+  <script>
+    const imgs = [
+      '../images/prints/01.11.2021_web.jpg',
+      '../images/prints/20230601_000954.jpg',
+      '../images/prints/IMG_20190109_225144.jpg',
+      '../images/prints/20230601_001003.jpg',
+      '../images/prints/20230601_001151.jpg',
+      '../images/prints/IMG_20190109_225201.jpg',
+      '../images/prints/IMG_20190318_120408.jpg',
+      '../images/prints/IMG_20191116_205819.jpg',
+      '../images/prints/IMG_20190109_121418.jpg',
+      '../images/prints/20230531_235013.jpg'
+    ];
+    document.getElementById('grid').innerHTML = imgs.map((s,i) =>
+      `<div class="cell s${i}"><img src="${s}" alt="Bento ${i+1}" loading="lazy"></div>`
+    ).join('');
+  </script>
+</body>
+</html>

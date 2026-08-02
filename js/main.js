@@ -2,7 +2,7 @@
  * Nebula Technosys — Main application
  */
 
-import { fetchGallery, initBentoGallery, HOME_PREVIEW_COUNT } from './gallery.js';
+import { fetchGallery, initCollageGallery, HOME_PREVIEW_COUNT } from './gallery.js';
 
 let config = {};
 let gallery = [];
@@ -105,16 +105,11 @@ async function loadGallery() {
 }
 
 function initHomeGallery() {
-  initBentoGallery({
-    grid: document.getElementById('portfolio-grid'),
+  initCollageGallery({
+    container: document.getElementById('portfolio-grid'),
     empty: document.getElementById('portfolio-empty'),
-    statusEl: null,
     gallery,
     limit: HOME_PREVIEW_COUNT
-  });
-
-  document.querySelectorAll('#portfolio-grid .bento-item').forEach(el => {
-    el.classList.add('reveal');
   });
 }
 
