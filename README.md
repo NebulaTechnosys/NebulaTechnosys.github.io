@@ -4,6 +4,7 @@ Business website for **Nebula Technosys** — mechanical design, rapid prototypi
 
 Static site optimized for **GitHub Pages**. Drop images into a folder, run one command, deploy.
 
+
 ## Quick start
 
 ### 1. Add your assets (minimal manual work)
